@@ -1,0 +1,6 @@
+/.lake
+.DS_Store
+__pycache__/
+*.pyc
+/delta2-bound/rust/target
+target/

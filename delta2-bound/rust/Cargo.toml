@@ -1,0 +1,18 @@
+[package]
+name = "delta2_verify"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.10"
+
+[[bin]]
+name = "delta2_hnf_sweep"
+path = "src/bin/delta2_hnf_sweep.rs"
+
+[lib]
+name = "delta2_verify"
+path = "src/lib.rs"
+
+[profile.release]
+opt-level = 3

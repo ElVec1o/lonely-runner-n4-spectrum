@@ -1,0 +1,15 @@
+{
+  "title": "The n=4 Lonely Runner spectrum near 1/4: delta_2(4)=3/14 and a candidate exceptional element D=2/7",
+  "description": "Two elementary finite-calculation results on the n=4 view-obstruction / Lonely Runner D-spectrum near its first accumulation point 1/4, in the framework of Jain-Kravitz (arXiv:2411.12684): (A) no saturated 2-dimensional subtorus of (R/Z)^4 has D-value in (3/14, 1/4), i.e. delta_2(4)=3/14, with an exact finite verification; (B) the observation that D=2/7 appears to be an exceptional element of S_1(4) intersect (1/4,1/2]. Developed with assistance from Anthropic's Claude; arithmetic elementary and reproducible.",
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "creators": [
+    { "name": "Bonfioli, Vico" }
+  ],
+  "keywords": [
+    "Lonely Runner Conjecture",
+    "view-obstruction",
+    "relative spectra",
+    "number theory"
+  ]
+}
