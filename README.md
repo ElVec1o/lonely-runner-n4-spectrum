@@ -1,5 +1,7 @@
 # The n = 4 Lonely Runner spectrum near the accumulation point 1/4
 
+[![DOI](https://zenodo.org/badge/1258849475.svg)](https://doi.org/10.5281/zenodo.20534835)
+
 Two elementary finite-calculation results about the n = 4 view-obstruction / Lonely
 Runner D-spectrum, on either side of its first accumulation point `1/4`, in the framework
 of Jain–Kravitz, *Relative Lonely Runner spectra*
@@ -49,6 +51,16 @@ When searching for the optimal `t = k/d` in `max_t min_i ‖v_i t‖`, one must 
 breakpoint set `{|v_i|, |v_i ± v_j|, 2|v_i|}` yet `q | d` for some `d` in it (e.g.
 `1/4 = 5/20`, `20 = 7+13`). The coprime shortcut silently overestimates `D`. The verifiers
 here avoid it, and results were cross-checked against independent floating-point grids.
+
+## Citation
+
+If you refer to this work, please cite it via its Zenodo DOI:
+
+> Vico Bonfioli. *The n=4 Lonely Runner spectrum near 1/4: δ₂(4)=3/14 and a candidate
+> exceptional element D=2/7*. Zenodo. <https://doi.org/10.5281/zenodo.20534835>
+
+`10.5281/zenodo.20534835` is the concept DOI (always resolves to the latest version); the
+`v1.0.0` release is archived at `10.5281/zenodo.20534834`.
 
 ## Acknowledgements
 
