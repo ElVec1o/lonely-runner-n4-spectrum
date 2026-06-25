@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 /delta2-bound/rust/target
 target/
+
+# compiled Rust verifier binary
+exceptional-element/verify_spectrum
