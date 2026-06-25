@@ -29,14 +29,40 @@ delta2_hnf_sweep 9`): over all `(1,2)`-pivot saturated planes the only exact D-v
 `≥ 3/14` are `3/14`, `1/4`, `1/2`, with nothing in the open gap (corroborated exactly out
 to `|entries| ≤ 70`, ~4·10⁸ planes).
 
-## Result B — above 1/4: `D = 2/7` is a candidate exceptional element  (`exceptional-element/`)
+## Result B — above 1/4: the exceptional elements are exactly `{1/3, 2/7}`  (`exceptional-element/`)
 
-In `S₁(4) ∩ (1/4, 1/2]` (Jain–Kravitz Theorem 1.3, whose finite symmetric difference is
-left uncomputed), the value `D = 2/7` appears to be **omitted**: over `|A|,|B| ≤ 600` the
-realized `D = 1/4 + 1/k` with `k ∈ [20,84]` are exactly `{k ≡ 4 mod 8, k ≥ 20}` except
-`k = 28`. Run `python3 exceptional-element/spectrum.py 60` (exact, no dependencies).
+`S₁(4) ∩ (1/4, 1/2]` is carried, by Jain–Kravitz Theorem 1.3, by the `1`-dimensional subtori
+of the two tori `U¹, U²`, up to a finite symmetric difference with their progression — "a
+finite calculation we have not attempted" (JK24). That calculation is carried out here and
+**proved in both directions**:
 
-This is an *observation* (a question for the structure theory), not a proof.
+> **The symmetric difference is exactly `{1/3, 2/7}`.** Equivalently,
+> `D ∈ S₁(4) ∩ (1/4, 1/2]  ⟺  D = 1/4 + 1/k` with `k ≡ 4 (mod 8)`, `k ≥ 20`, `k ≠ 28`;
+> the two missing progression values are `1/3 = 1/4 + 1/12` and `2/7 = 1/4 + 1/28`.
+
+* **Exclusion** — `1/3` and `2/7` are realized by no subtorus
+  ([`COORDINATE_BOUND.md`](exceptional-element/COORDINATE_BOUND.md),
+  [`U2_SMALL_A.md`](exceptional-element/U2_SMALL_A.md),
+  [`U1_FAMILY.md`](exceptional-element/U1_FAMILY.md)). The `M = 2(A+B)` equally-spaced-orbit
+  construction gives, uniformly in `A`, `A+B ≥ 15 ⟹ D < 2/7` and `A+B ≥ 7 ⟹ D < 1/3`; the
+  finite remainders are exact checks; `U¹` is characterized completely (`k ≡ 4 mod 16`).
+* **Realization** — every other `k` *is* realized, with a **proved exact value**
+  ([`REALIZATION.md`](exceptional-element/REALIZATION.md),
+  [`U2_REALIZATION_PROOF.md`](exceptional-element/U2_REALIZATION_PROOF.md)): `U¹ (1, 4j)` for
+  `k ≡ 4 mod 16`, and the gap-free coprime family `U² (4m+3, 8)` for `k ≡ 12 mod 16`. The hard
+  half — the `U²` exact value — reduces, via the substitution `n = (A+8)p` giving the
+  `m`-independent multipliers `(3, −2, 1, −1)`, to the `m`-free covering lemma
+  `min(‖n‖, ‖2n‖, ‖3n‖)_q ≤ ⌊q/4⌋`.
+
+Five dependency-free exact-rational verifiers (`exceptional-element/verify_*.py`) check every
+step; a parallel Rust cross-check (`verify_spectrum.rs`) re-confirms the whole characterization
+from scratch to `k = 200000`. The statement and the two hardest lemmas are machine-verified in
+Lean 4 in the companion repository
+[`kravitz-lonely-runner-n3`](https://github.com/ElVec1o/kravitz-lonely-runner-n3)
+(`MasterTheorem.lean`, `U2CoveringLemma.lean`, `U1FamilyBound.lean`).
+
+`2/7` was the candidate omission first spotted numerically (`spectrum.py`); it is now proved
+exceptional, together with `1/3`.
 
 ## The two results meet at 3/14
 
