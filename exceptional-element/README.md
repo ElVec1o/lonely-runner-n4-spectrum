@@ -43,9 +43,40 @@ appear already by `|A|,|B| ≈ 40`), but `1/4 + 1/28 = 2/7` does **not** occur a
 the searched range, for either subtorus.
 
 This is consistent with `D = 2/7` being an exceptional element of the finite symmetric
-difference in Theorem 1.3. It is an **observation**, not a proof: ruling out a
-realization at `|A|, |B| > 600` requires the structural description of the realizable
-set, not an enlarged search.
+difference in Theorem 1.3. By itself the table above is an **observation**, not a proof:
+ruling out a realization at `|A|, |B| > 600` requires the structural description of the
+realizable set, not an enlarged search.
+
+That structural description is now proved, **both directions**: the finite symmetric
+difference of Jain–Kravitz Theorem 1.3 is **exactly `{1/3, 2/7}`**. The exclusion direction
+(neither `1/3` nor `2/7` is realized by any `1`-dimensional subtorus of `U¹ ∪ U²`) is split
+across three elementary, independently verified notes:
+
+* [`COORDINATE_BOUND.md`](COORDINATE_BOUND.md) — `U²` with `A ≥ 3`: `D ≤ 5/18 < 2/7`, via
+  `ML(A,B,A+B,A+2B) ≥ 2/9` (an explicit `t = k/(2(A+B))` construction).
+* [`U2_SMALL_A.md`](U2_SMALL_A.md) — `U²` uniformly in `A`: the same construction with a
+  wider band gives `A+B ≥ 15 ⟹ D < 2/7` and `A+B ≥ 7 ⟹ D < 1/3`, and the finite
+  remainders (`A+B ≤ 14`, resp. `≤ 6`) contain no exact `2/7` or `1/3`. Covers `A = 1, 2`.
+* [`U1_FAMILY.md`](U1_FAMILY.md) — `U¹`: realizes exactly `D = 1/4 + 1/(16j+4)`
+  (`k ≡ 4 mod 16`), which contains neither `12` nor `28`.
+
+Each note ships a dependency-free verifier (`verify_*.py`); the `U¹` lower bound is also
+formalized sorry-free in Lean 4.
+
+The **forward** direction (every *other* `k ≡ 4 (mod 8)`, `k ≥ 20`, `k ≠ 28` is realized)
+is taken up in [`REALIZATION.md`](REALIZATION.md), via two clean coprime families, one per
+residue mod 16:
+
+* `k ≡ 4 (mod 16)`: `U¹` `(1, 4j)`, with `D = 1/4 + 1/(16j+4)` **proved on both sides**.
+* `k ≡ 12 (mod 16)`: `U²` `(1,7)` and `(4m+3, 8)`, with `D = 1/4 + 1/(16m+60)` **proved on
+  both sides** ([`U2_REALIZATION_PROOF.md`](U2_REALIZATION_PROOF.md)). Fixing `B = 8` and
+  varying the *odd* coordinate `A = 4m+3` makes `gcd = 1` automatic, so the family is
+  gap-free. The exact-value upper bound is proved by reducing to twelve tie-moduli; the one
+  tight (4-runner) modulus collapses, via the substitution `n = (A+8)p` giving the
+  `m`-independent multipliers `(3,−2,1,−1)`, to an `m`-free `{1,2,3}` covering lemma.
+
+Both directions are proved: **the finite symmetric difference of Jain–Kravitz Theorem 1.3 is
+exactly `{1/3, 2/7}`.**
 
 ## Reproduce
 
