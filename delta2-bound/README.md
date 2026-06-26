@@ -30,3 +30,50 @@ Expected (`B = 9`): `EXACT D in open gap (3/14, 1/4): 0`, and the only exact D-v
 
 `d_2dim` was cross-checked against an independent fine-grid evaluation (0 disagreements on
 the gap-relevant planes); the earlier float grid is used nowhere in the proof.
+
+## Independent `WallCore` verifier (`verify_wallcore.py`)
+
+A second, from-scratch implementation (dependency-free exact integer arithmetic, no shared
+code with `rust/`) that re-derives the *combinatorial core* the formalization reduces to —
+not the maximizer, but the **good-wall** property. The Lean reduction
+(`delta2sat_le_of_wallCoreComb`) shows `δ₂(4) ≤ 3/14` follows from: every saturated band has a
+wall `(i,j,ε)` whose merged minor-triple is full-support and not `(1,2,3)`-shaped; and
+`jkForm_bounded` bounds the normal form to `c,f ≤ 30`. So the bound reduces to a **pure
+integer check** — no real-valued `D` needed for the generic family.
+
+```
+python3 verify_wallcore.py 30      # the proven bound
+```
+
+Result: over **10,045,542** saturated Case-A normal forms (`a<b<c`, `d<e<f ≤ 30`), **every one
+has a good wall** (`0` exceptions) ⟹ all are `≤ 3/14`, nothing in the open gap. The script's
+guarded `mD` spot-check shows *why* this is sound where a pure-minor abstraction is not: the
+boundary form `(1,2,3,1,2,3)` (`mD = 1/4`) is excluded as **non-saturated** (minor-gcd `2`, the
+`2·Lrz` scaling). The degenerate special cases (coincident/zero parameters) are bounded
+separately (Lean `NormalForm`: caseB/C/D). This independently confirms the WallCore residual
+across the full bounded family.
+
+## Active-wall probes (`probe_primitive_wall.py`, `diag_primitive_wall.py`, `probe_band_primitive.py`)
+
+These mine the structure of the *other* clean residual the Lean library exposes,
+`PrimitiveActiveWall`: every saturated band with `mD < 1/4` has a maximizer `τ` and a
+**primitive** active wall `gcd(A,B) = 1`, `(A,B) = M_i − ε·M_j`. Each probe computes the exact
+loneliness maximizer (rational vertex of the wall-line arrangement, exact `Fraction` arithmetic)
+and inspects the active walls there.
+
+```
+python3 probe_primitive_wall.py 12     # re-derive + mine the gcd / maximizer structure
+python3 diag_primitive_wall.py         # diagnose the flagged bands
+python3 probe_band_primitive.py 14     # restrict to the relevant band mgap ∈ (1/4, 2/7)
+```
+
+Finding: the maximizer active wall is primitive on **most** bands but **not all** — it fails on
+the *deep-lonely* regime `mgap > 2/7` (`mD < 3/14`). Concrete refuter: `jk(1,2,5,3,4,6)` is
+saturated (six minors `[-6,-2,-9,10,21,-8]`, gcd `1`), has `mgap = 5/12`, and carries **no**
+primitive integer wall at any maximizer. So the unrestricted "primitive active wall at the deep
+hole" claim over-reaches: those deep bands are exactly the ones where the `δ₂(4)` bound is already
+trivial (`mD = 1/2 − mgap ≤ 1/2 − 2/7 = 3/14`). The wall argument is only *needed* on the gap band
+`mgap ∈ (1/4, 2/7)` ⟺ `mD ∈ (3/14, 1/4)` — and that band is **empty** of saturated forms
+(`0` over entries `≤ 14`, matching the Rust sweep), which is exactly `S₂(4) ∩ (3/14, 1/4) = ∅`.
+The honest minimal residual is therefore the band-restricted gap-emptiness, not a primitivity
+claim over all `mD < 1/4` (formalized as `BandGapEmpty` in the Lean library).
